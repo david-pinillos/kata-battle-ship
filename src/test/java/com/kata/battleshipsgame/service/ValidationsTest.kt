@@ -4,6 +4,7 @@ import com.kata.battleshipsgame.model.Boards
 import com.kata.battleshipsgame.model.Player.ME
 import com.kata.battleshipsgame.model.Plays
 import com.kata.battleshipsgame.model.Position
+import com.kata.battleshipsgame.model.Position.BOAT_CHECKED
 import com.kata.battleshipsgame.model.Position.BOAT_UNKNOWN
 import com.kata.battleshipsgame.model.Position.FREE_UNKNOWN
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -254,7 +255,7 @@ class ValidationsTest {
         val myBoard = MutableList(3) { MutableList(3) { FREE_UNKNOWN } }
             .apply {
                 this[0][0] = BOAT_UNKNOWN
-                this[1][0] = Position.BOAT_CHECKED
+                this[1][0] = BOAT_CHECKED
                 this[2][0] = BOAT_UNKNOWN
             }
         val rivalBoard = validBoard
