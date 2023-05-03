@@ -28,7 +28,7 @@ class BattleShipsGame {
 
         boards.printBoards()
 
-        val (firstPlayerData: PlayerData, secondPlayerData: PlayerData) = orderPlayers(boards, plays, firstPlayer)
+        val (firstPlayerData: PlayerData, secondPlayerData: PlayerData) = orderPlayers(boards, plays)
 
         val currentTurn = doTheGame(boards, firstPlayerData, secondPlayerData)
 
@@ -38,10 +38,10 @@ class BattleShipsGame {
         return MatchResults(boards = boards, winner = boards.winner(), playsDone = currentTurn)
     }
 
-    private fun orderPlayers(boards: Boards, plays: Plays, firstPlayer: Player): Pair<PlayerData, PlayerData> {
+    private fun orderPlayers(boards: Boards, plays: Plays): Pair<PlayerData, PlayerData> {
         val rivalPlayData = PlayerData(RIVAL, boards.mine, plays.rivals)
         val myPlayData = PlayerData(ME, boards.rivals, plays.mine)
-        return if (firstPlayer == ME) myPlayData to rivalPlayData else rivalPlayData to myPlayData
+        return myPlayData to rivalPlayData
     }
 
     private fun doVerifications(boards: Boards) {
@@ -52,11 +52,9 @@ class BattleShipsGame {
     private fun doTheGame(boards: Boards, firstPlayerData: PlayerData, secondPlayerData: PlayerData): Int {
         val maxPlaySize = max(firstPlayerData.playerPlay.size, secondPlayerData.playerPlay.size)
         var playNumber = 0
-        while (!boards.endGame() && playNumber < maxPlaySize) {
+        while (playNumber < maxPlaySize) {
             doOnePlay(firstPlayerData.targetBoard, firstPlayerData.playerPlay, playNumber)
-            if (!boards.endGame()) {
-                doOnePlay(secondPlayerData.targetBoard, secondPlayerData.playerPlay, playNumber)
-            }
+            doOnePlay(secondPlayerData.targetBoard, secondPlayerData.playerPlay, playNumber)
             playNumber++
         }
         return playNumber
