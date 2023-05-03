@@ -34,7 +34,7 @@ fun Board.verifyCellPercentageBoats() {
     val percentageBoats =
         BigDecimal(allCellsBoatsCount.toDouble() / allCellsCount.toDouble()).multiply(BigDecimal(100)).setScale(
             0,
-            java.math.RoundingMode.HALF_UP
+            java.math.RoundingMode.HALF_UP,
         )
 
     if (percentageBoats < BigDecimal("20")) throw IllegalArgumentException("Min boat cells should be 20% and they are $percentageBoats%")

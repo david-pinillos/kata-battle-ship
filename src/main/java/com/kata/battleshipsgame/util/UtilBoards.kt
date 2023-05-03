@@ -11,5 +11,4 @@ fun Board.resolved(): Boolean =
 fun Board.countPlays(): Int =
     this.flatMap { row -> row.map { column -> !column.isUnknown } }.count { it }
 
-
 fun Boards.winner(): Player? = if (mine.resolved()) Player.RIVAL else if (rivals.resolved()) Player.ME else null

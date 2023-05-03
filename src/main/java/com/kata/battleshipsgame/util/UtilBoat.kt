@@ -17,7 +17,6 @@ fun Boat.getAllCoordinates(): List<Coordinate> = handleBoat<Any, List<Coordinate
 fun Boat.isCloseCell(coordinate: Coordinate): Boolean =
     this.getAllCoordinates().any { it.isNextTo(coordinate) }
 
-
 fun Boat.calculateSize(): Int = handleBoat<Any, Int>(
     boatInAColumn = { (this.second.first - this.first.first) + 1 },
     boatInARow = { (this.second.second - this.first.second) + 1 },
