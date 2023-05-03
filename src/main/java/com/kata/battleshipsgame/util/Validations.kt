@@ -40,19 +40,7 @@ fun Board.verifyCellPercentageBoats() {
 }
 
 fun Board.verifySize() {
-    val rows = this.size
-    if (rows < 3) throw IllegalArgumentException("Min rows = 3, actual = $rows")
-    if (rows > 9) throw IllegalArgumentException("Max rows = 9, actual = $rows")
-
-    if (this.map { it.size }.any { this.first().size != it }) {
-        throw IllegalArgumentException("All rows needs to have same value")
-    }
-
-    val columns = this.first().size
-    if (columns < 3) throw IllegalArgumentException("Min cols = 3, actual = $columns")
-    if (columns > 9) throw IllegalArgumentException("Max cols = 9, actual = $columns")
-
-    if (columns != rows) throw IllegalArgumentException("Columns ($columns) and rows ($rows) should have the same size")
+    // TODO add board size verifications
 }
 
 fun Board.verifyBoatSize() {
