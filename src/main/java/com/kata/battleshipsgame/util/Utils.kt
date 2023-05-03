@@ -3,7 +3,7 @@ package com.kata.battleshipsgame.util
 import com.kata.battleshipsgame.model.Board
 import com.kata.battleshipsgame.model.Boat
 
-fun countColumn(board: Board, row: Int, col: Int): Boat? {
+fun findBoatInColumn(board: Board, row: Int, col: Int): Boat? {
     val length = board.size
     var max = row
     while (max + 1 < length && board[max + 1][col].isBoat) {
@@ -29,7 +29,7 @@ fun <T : Any, R> Boat.handleBoat(body: T? = null, boatInAColumn: (T?) -> R, boat
         throw IllegalArgumentException("Boat need to be in a row or a column")
     }
 
-fun countRow(
+fun findBoatInRow(
     board: Board,
     row: Int,
     col: Int,

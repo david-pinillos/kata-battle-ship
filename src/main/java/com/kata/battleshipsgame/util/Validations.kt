@@ -63,7 +63,7 @@ fun Board.verifyBoatSize() {
         rowList.forEachIndexed { col, cell ->
             if (cell.isBoat && boats.containsCell(row to col)) {
                 if (boats.isCloseCells(row to col)) throw IllegalArgumentException("Cant put a boat near other. Check row $row, col $col")
-                val possibleBoat = verifyBoatCell(this, row, col)
+                val possibleBoat = getBoatFromCell(this, row, col)
                 possibleBoat?.let { boats.add(it) }
                     ?.also { if (boats.size > 5) throw IllegalArgumentException("Can't create more than 5 boats, were ${boats.size}") }
             }
@@ -71,8 +71,8 @@ fun Board.verifyBoatSize() {
     }
 }
 
-fun verifyBoatCell(board: Board, row: Int, col: Int): Boat? {
-    val boat = countRow(board, row, col) ?: countColumn(board, row, col)
+private fun getBoatFromCell(board: Board, row: Int, col: Int): Boat? {
+    val boat = findBoatInRow(board, row, col) ?: findBoatInColumn(board, row, col)
     val size = boat?.calculateSize() ?: 1
     if (size < 2) throw IllegalArgumentException("Boat can't be smaller than 2, size was $size")
     if (size > 5) throw IllegalArgumentException("Boat can't be bigger than 5, size was $size")
