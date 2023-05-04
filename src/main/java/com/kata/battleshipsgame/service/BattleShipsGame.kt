@@ -9,10 +9,6 @@ import com.kata.battleshipsgame.model.Player.ME
 import com.kata.battleshipsgame.model.Player.RIVAL
 import com.kata.battleshipsgame.model.PlayerData
 import com.kata.battleshipsgame.model.Plays
-import com.kata.battleshipsgame.model.Position.BOAT_CHECKED
-import com.kata.battleshipsgame.model.Position.BOAT_UNKNOWN
-import com.kata.battleshipsgame.model.Position.FREE_CHECKED
-import com.kata.battleshipsgame.model.Position.FREE_UNKNOWN
 import com.kata.battleshipsgame.util.printBoards
 import com.kata.battleshipsgame.util.printWinner
 import com.kata.battleshipsgame.util.resolved
@@ -63,15 +59,7 @@ class BattleShipsGame {
     }
 
     private fun doOnePlay(board: Board, plays: List<Play>, numberOfPlay: Int) {
-        if (numberOfPlay > plays.size) {
-            throw IllegalArgumentException("There is no play in the player for number of play $numberOfPlay")
-        }
-        val play = plays[numberOfPlay]
-        board[play.first][play.second] = when (val currentPosition = board[play.first][play.second]) {
-            FREE_UNKNOWN -> FREE_CHECKED
-            BOAT_UNKNOWN -> BOAT_CHECKED
-            else -> throw IllegalArgumentException("Position (${play.first} ${play.second}) already known, value = $currentPosition")
-        }
+        // TODO create the logic
     }
 }
 
