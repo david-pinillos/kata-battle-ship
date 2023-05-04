@@ -2,7 +2,7 @@
 
 This is a project to do a practice, to learn some features in Kotlin.
 
-Main test class are in [test folder](src/test/kotlin/com/poc/cucumber/service/).
+Main test class are in [test folder](src/test/java/com/kata/battleshipsgame/service/).
 
 You have some tests that call main class [BattleShipsGame](src/main/java/com/kata/battleshipsgame/service/BattleShipsGame.kt) where a match is played.
 
