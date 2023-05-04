@@ -1,12 +1,16 @@
 package com.kata.battleshipsgame.service
 
 import com.kata.battleshipsgame.model.Boards
+import com.kata.battleshipsgame.model.Player
 import com.kata.battleshipsgame.model.Player.ME
 import com.kata.battleshipsgame.model.Plays
 import com.kata.battleshipsgame.model.Position
 import com.kata.battleshipsgame.model.Position.BOAT_CHECKED
 import com.kata.battleshipsgame.model.Position.BOAT_UNKNOWN
+import com.kata.battleshipsgame.model.Position.FREE_CHECKED
 import com.kata.battleshipsgame.model.Position.FREE_UNKNOWN
+import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
@@ -274,7 +278,7 @@ class ValidationsTest {
                 this[0][0] = BOAT_UNKNOWN
                 this[1][0] = BOAT_UNKNOWN
                 this[2][0] = BOAT_UNKNOWN
-                this[0][1] = Position.FREE_CHECKED
+                this[0][1] = FREE_CHECKED
             }
         val rivalBoard = validBoard
 
@@ -283,5 +287,25 @@ class ValidationsTest {
 
         assertThatThrownBy { gameService.play(Boards(myBoard, rivalBoard), Plays(myPlay, itsPlay)) }
             .hasMessage("All cells needs to be unknown")
+    }
+
+    @Test
+    fun `A cell checked cannot be checked again`() {
+        val myBoard = mutableListOf(
+            mutableListOf(BOAT_UNKNOWN, BOAT_UNKNOWN, FREE_UNKNOWN),
+            mutableListOf(FREE_UNKNOWN, FREE_UNKNOWN, FREE_UNKNOWN),
+            mutableListOf(FREE_UNKNOWN, FREE_UNKNOWN, FREE_UNKNOWN),
+        )
+        val rivalBoard = mutableListOf(
+            mutableListOf(FREE_UNKNOWN, FREE_UNKNOWN, FREE_UNKNOWN),
+            mutableListOf(FREE_UNKNOWN, BOAT_UNKNOWN, BOAT_UNKNOWN),
+            mutableListOf(FREE_UNKNOWN, FREE_UNKNOWN, FREE_UNKNOWN),
+        )
+
+        val myPlay = listOf(1 to 1, 1 to 1)
+        val itsPlay = listOf(0 to 0, 0 to 1)
+
+        assertThatThrownBy { gameService.play(Boards(myBoard, rivalBoard), Plays(myPlay, itsPlay)) }
+            .hasMessage("Position (1 1) already known, value = BOAT_CHECKED")
     }
 }

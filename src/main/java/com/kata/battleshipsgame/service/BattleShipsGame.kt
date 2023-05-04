@@ -70,7 +70,7 @@ class BattleShipsGame {
         board[play.first][play.second] = when (val currentPosition = board[play.first][play.second]) {
             FREE_UNKNOWN -> FREE_CHECKED
             BOAT_UNKNOWN -> BOAT_CHECKED
-            else -> throw IllegalArgumentException("Position already known, value = $currentPosition")
+            else -> throw IllegalArgumentException("Position (${play.first} ${play.second}) already known, value = $currentPosition")
         }
     }
 }
