@@ -3,6 +3,9 @@ package com.kata.battleshipsgame.util
 import com.kata.battleshipsgame.model.Board
 import com.kata.battleshipsgame.model.Boards
 import com.kata.battleshipsgame.model.Boat
+import com.kata.battleshipsgame.model.Position.BOAT_UNKNOWN
+import java.math.BigDecimal
+import java.math.RoundingMode.HALF_UP
 
 fun Boards.verifyBoards() {
     val (mine, rivals) = this
@@ -17,6 +20,12 @@ fun Boards.verifyBoats() {
 }
 
 fun Board.verifyBoats() {
+    val numberOfBoatCells = this.flatten().filter { it == BOAT_UNKNOWN }.size
+    val totalNumberOfCells = this.flatten().size
+    val boatCellsPercentage = BigDecimal(numberOfBoatCells).divide(BigDecimal(totalNumberOfCells), 2, HALF_UP).multiply(BigDecimal(100)).setScale(0)
+    if (boatCellsPercentage < BigDecimal("20")) {
+        throw IllegalArgumentException("Min boat cells should be 20% and they are $boatCellsPercentage%")
+    }
     this.verifyCellPercentageBoats()
     this.verifyCellsAreUnknown()
     this.verifyBoatSize()
